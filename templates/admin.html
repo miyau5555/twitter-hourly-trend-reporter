@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Twitter Hourly Trend Reporter</title>
+        <!-- Bootstrap core CSS -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="/static/css/dashboard.css" rel="stylesheet">
+    </head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Twitter Hourly Trend Reporter</a>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/">キーワード一覧</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin">管理ページ</a>
+              </li>
+            </ul>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            {% if message != "" %}
+            <p style="color: red;">{{message}}</p>
+            {% endif %}
+            
+            <ul>
+            {% for id in keyword_list.keys() %}
+            <li><a href="/trend/{{ id }}">{{ keyword_list[id] }}</a>　　　<a href="/admin/delete/{{ id }}">削除</a></li>
+            {% endfor %}
+            </ul>
+            
+            <form action="/admin/add" method="post">
+            <p>
+            キーワード：<input type="text" name="keyword" size="40">
+            </p>
+            <p>
+            パスワード：<input type="password" name="password" size="40">
+            </p>
+            <p>
+            <input type="submit" value="追加">
+            </p>
+            </form>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+</body>
+</html>

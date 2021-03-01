@@ -1,0 +1,7 @@
+applications:
+- name: twitter-hourly-trend-reporter
+  random-route: true
+  memory: 128M
+  instances: 1
+  buildpacks:
+    - python_buildpack

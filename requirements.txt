@@ -1,0 +1,4 @@
+requests_oauthlib
+Flask
+Cloudant
+feedgenerator
