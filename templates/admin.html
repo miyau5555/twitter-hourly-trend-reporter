@@ -37,7 +37,7 @@
             
             <ul>
             {% for id in keyword_list.keys() %}
-            <li><a href="/trend/{{ id }}">{{ keyword_list[id] }}</a>　　　<a href="/admin/delete/{{ id }}">削除</a></li>
+            <li><a href="/trend/{{ id }}">{{ keyword_list[id] }}</a>　　　<a href="/admin/update/{{ id }}">修正</a>・<a href="/admin/delete/{{ id }}">削除</a></li>
             {% endfor %}
             </ul>
             

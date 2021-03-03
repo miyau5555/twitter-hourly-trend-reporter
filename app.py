@@ -14,6 +14,7 @@ from document import Document
 from twitter import search_tweet
 from keyword_list import get_keyword_list
 from keyword_list import add_keyword
+from keyword_list import modify_keyword
 from keyword_list import delete_keyword
 
 PASSWORD = os.environ["PASSWORD"]
@@ -47,6 +48,25 @@ def keyword_add():
     
     add_keyword(request.form["keyword"])
     return redirect("/admin?message=" + urllib.parse.quote("キーワードが追加されました"))
+
+@app.route('/admin/update/<id>', methods=['GET','POST'])
+def keyword_modify(id):
+    
+    if request.method == 'GET':
+        keyword_list = get_keyword_list()
+        message = request.args.get("message", default="", type=str) 
+        return render_template('modify.html', id=id, keyword=keyword_list[id], message=message)
+    else:
+        if ("password" in request.form) == False  or ("keyword" in request.form) == False:
+            return redirect("/admin") 
+        if request.form["keyword"] == "":
+            return redirect("/admin/update/" + id + "?message=" + urllib.parse.quote("キーワードが空白です。"))
+        if request.form["password"] != PASSWORD:
+            return redirect("/admin/update/" + id + "?message=" + urllib.parse.quote("パスワードが間違っています。"))
+        
+        modify_keyword(id, request.form["keyword"])
+        return redirect("/admin?message=" + urllib.parse.quote("キーワードが修正されました"))
+
 
 @app.route('/admin/delete/<id>', methods=['GET','POST'])
 def keyword_delete(id):

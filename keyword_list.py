@@ -35,6 +35,18 @@ def add_keyword(keyword):
     instance.setValue("keyword_list", {"timestamp": int(time.time()), "list": list})
     client.disconnect()
 
+def modify_keyword(id, keyword):
+    client = Cloudant.iam(DB_ACCOUNT_NAME, DB_API_KEY, url=DB_URL, connect=True)
+    database = client[DB_NAME]
+    document = database["tweet_keyword_list"]
+    list = document["list"]
+    list[id] = keyword;
+    document["list"] = list;
+    document.save()
+    instance = Document.getInstance()
+    instance.setValue("keyword_list", {"timestamp": int(time.time()), "list": list})
+    client.disconnect()
+
 def delete_keyword(id):
     client = Cloudant.iam(DB_ACCOUNT_NAME, DB_API_KEY, url=DB_URL, connect=True)
     database = client[DB_NAME]
